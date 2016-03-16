@@ -5,16 +5,15 @@ ENV CONFIG_SOURCE="" \
     GOPATH=/gopath \
     GOBIN=/usr/bin
 
-ADD sync-config.sh /usr/bin/sync-config
-
 RUN apk add -U --no-cache go git gnupg && \
     go get -v github.com/ncw/rclone && \
     adduser -D orbit && \
     apk del --purge go git && \
     rm -rf /var/cache/apk && \
     rm -rf /gopath && \
-    mkdir /home/orbit/config && \
-    chmod +x /usr/bin/sync-config
+    mkdir /home/orbit/config
+
+COPY sync-config.sh /usr/bin/sync-config
 
 USER orbit
 
