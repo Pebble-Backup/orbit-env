@@ -13,13 +13,15 @@ fi
 
 if [ ! -f /config/private.key ]; then
 	echo "No private key found, unable to decrypt"
+else
+	gpg2 --import /config/private.key 2>/dev/null
 fi
 if [ ! -f /config/public.key ]; then
 	echo "No public key found, unable to verify signatures"
+else
+	gpg2 --import /config/public.key 2>/dev/null
 fi
-gpg2 --import /config/private.key 2>/dev/null
-gpg2 --import /config/public.key 2>/dev/null
-rm -rf /config/private.key
-rm -rf /config/public.key
+
+rm -f /config/public.key /config/private.key
 
 # Begin decryption operations here before exiting
