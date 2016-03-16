@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 [ -z "${ENV_SOURCE}" ] && echo "No ENV_SOURCE URI specified"; exit
 

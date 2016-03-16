@@ -14,7 +14,7 @@ Have all of the environment files you want made available to your app
 in a storage medium your instance can reach, defined as SOURCE_ENV.
 
 Any source files encrypted with git-deploy's 'secret' command with a .secret
-extension will arrive at the designation decrypted with extension stripped
+extension will arrive at the destination decrypted with extension stripped
 so long as the needed GPG keys are present in the SOURCE_ENV as public.key and
 private.key respectively.
 
