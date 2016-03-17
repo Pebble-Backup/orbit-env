@@ -11,7 +11,8 @@ RUN apk add -U --no-cache go git gnupg && \
     apk del --purge go git && \
     rm -rf /var/cache/apk && \
     rm -rf /gopath && \
-    mkdir /home/orbit/config
+    mkdir /config && \
+    chown -R orbit: /config
 
 COPY sync-config.sh /usr/bin/sync-config
 COPY rclone.conf /home/orbit/.rclone.conf
@@ -20,6 +21,6 @@ USER orbit
 
 WORKDIR /home/orbit/
 
-VOLUME /home/orbit/config
+VOLUME /config
 
 CMD ["/usr/bin/sync-config"]
