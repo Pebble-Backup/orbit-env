@@ -5,10 +5,10 @@ ENV CONFIG_SOURCE="" \
     GOPATH=/gopath \
     GOBIN=/usr/bin
 
-RUN apk add -U --no-cache go git gnupg && \
+RUN apk add -U --no-cache go bash git gnupg && \
     go get -v github.com/ncw/rclone && \
     adduser -D orbit && \
-    apk del --purge bash go git && \
+    apk del --purge go git && \
     rm -rf /var/cache/apk && \
     rm -rf /gopath && \
     mkdir /config
