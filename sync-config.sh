@@ -1,5 +1,8 @@
 #!/bin/bash
 
+sed -i "s/__AWS_REGION__/$AWS_REGION/g" .rclone.conf.template
+cp /home/orbit/.rclone.conf{.template,}
+
 [ -z "${ENV_SOURCE}" ] && echo "No ENV_SOURCE URI specified" && exit
 
 if [[ "$ENV_SOURCE" == "s3://"* ]]; then
