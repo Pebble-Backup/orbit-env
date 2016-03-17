@@ -14,6 +14,7 @@ RUN apk add -U --no-cache go git gnupg && \
     mkdir /home/orbit/config
 
 COPY sync-config.sh /usr/bin/sync-config
+COPY rclone.conf /home/orbit/.rclone.conf
 
 USER orbit
 
