@@ -20,4 +20,4 @@ VOLUME /config
 COPY sync-config.sh /usr/bin/sync-config
 COPY rclone.conf /home/orbit/.rclone.conf
 
-CMD ["/usr/bin/sync-config"]
+CMD chown -R orbit: /config && su -c "sync-config" orbit
