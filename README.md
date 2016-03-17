@@ -21,5 +21,5 @@ private.key respectively.
 Example:
 
 ```
-docker run -e SOURCE_ENV="s3://some-bucket" -v config:/config pebbletech/orbit-env
+docker run -e ENV_SOURCE="s3://some-bucket" -v config:/config pebbletech/orbit-env
 ```
