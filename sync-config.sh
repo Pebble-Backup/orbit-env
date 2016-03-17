@@ -1,9 +1,9 @@
 #!/bin/bash
 
-[ -z "${ENV_SOURCE}" ] && echo "No ENV_SOURCE URI specified"; exit
+[ -z "${ENV_SOURCE}" ] && echo "No ENV_SOURCE URI specified" && exit
 
 if [[ "$ENV_SOURCE" == "s3://"* ]]; then
-	rclone s3:${ENV_SOURCE#s3://} /config
+	rclone sync s3:${ENV_SOURCE#s3://} /config
 elif [[ "$ENV_SOURCE" == "file://"* ]]; then
 	cp -R ${ENV_SOURCE#file://} /config
 else
