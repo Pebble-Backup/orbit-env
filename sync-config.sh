@@ -1,4 +1,8 @@
-#!/bin/sh
+#!/bin/bash
+
+chown -R orbit: /config
+
+su - orbit
 
 [ -z "${ENV_SOURCE}" ] && echo "No ENV_SOURCE URI specified"; exit
 
