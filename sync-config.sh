@@ -27,4 +27,10 @@ fi
 
 rm -f /config/public.key /config/private.key
 
-# Begin decryption operations here before exiting
+gpg_template='-----BEGIN PGP MESSAGE-----\n\n%s\n-----END PGPMESSAGE-----\n'
+find /config -type f -iname "*.secret" -print0 \
+  | while IFS= read -r -d $'\0' file; do
+	local out_file=$(echo $file | sed 's/.secreti$//g')
+	printf -- $gpg_template $(cat $file) | gpg2 --decrypt > $out_file
+done
+
