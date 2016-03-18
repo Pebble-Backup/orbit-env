@@ -3,6 +3,6 @@ type = s3
 env_auth = true
 access_key_id = 
 secret_access_key = 
-region = us-west-2
+region = __AWS_REGION__
 endpoint = 
 location_constraint = 
