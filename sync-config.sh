@@ -17,12 +17,12 @@ fi
 if [ ! -f /config/private.key ]; then
         echo "No private key found, unable to decrypt"
 else
-        gpg2 --import /config/private.key 2>/dev/null
+        gpg2 --batch --import /config/private.key 2>/dev/null
 fi
 if [ ! -f /config/public.key ]; then
         echo "No public key found, unable to verify signatures"
 else
-        gpg2 --import /config/public.key 2>/dev/null
+        gpg2 --batch --import /config/public.key 2>/dev/null
 fi
 
 rm -f /config/public.key /config/private.key
