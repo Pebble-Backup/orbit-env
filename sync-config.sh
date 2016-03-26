@@ -28,6 +28,7 @@ fi
 rm -f /config/public.key /config/private.key
 
 gpg_template='-----BEGIN PGP MESSAGE-----\n\n%s\n\n-----END PGPMESSAGE-----\n'
+
 find /config -type f -iname "*.secret" -print0 \
   | while IFS= read -r -d $'\0' file; do
         out_file=$(echo $file | sed 's/.secret$//g')
@@ -35,3 +36,22 @@ find /config -type f -iname "*.secret" -print0 \
         gpg2 --decrypt ${out_file}.gpg > ${out_file} 2> /dev/null
         rm ${out_file}.{gpg,secret}
 done
+
+find /config -type f -iname "*.env" -print0 \
+  | while IFS= read -r -d $'\0' file; do
+        while IFS='' read -r line || [[ -n "$line" ]]; do
+            if [[ "${line:0:1}" != "#" ]] && [[ "$line" == *"="* ]]; then
+                key=${line%%=*}
+                value=${line#*=}
+                decrypted_value=$(printf -- "$gpg_template" "$value" | gpg2 -d 2>/dev/null)
+                if [ "$?" -eq 0 ]; then
+                        echo $key=$decrypted_value >> ${file}.decrypted
+                else
+                        echo $line >> ${file}.decrypted
+                	fi
+            	else
+                    echo $line >> ${file}.decrypted
+            fi
+        done < "$file"
+done
+
