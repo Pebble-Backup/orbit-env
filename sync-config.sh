@@ -39,6 +39,7 @@ done
 
 find /config -type f -iname "*.env" -print0 \
 | while IFS= read -r -d $'\0' file; do
+
 	while IFS='' read -r line || [[ -n "$line" ]]; do
 		if [[ "${line:0:1}" != "#" ]] && [[ "$line" == *"="* ]]; then
 			key=${line%%=*}
@@ -58,4 +59,8 @@ find /config -type f -iname "*.env" -print0 \
 			echo $line >> ${file}.decrypted
 		fi
 	done < "$file"
+
+	if [ -f ${file}.decrypted ]; then
+		mv ${file}.decrypted $file
+	fi
 done
