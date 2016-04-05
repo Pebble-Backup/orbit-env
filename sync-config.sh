@@ -47,7 +47,10 @@ find /config -type f -iname "*.env" -print0 \
 				printf -- "$gpg_template" "$value" | gpg2 -d 2>/dev/null
 			)
 			if [ "$?" -eq 0 ]; then
-				echo $key=$decrypted_value >> ${file}.decrypted
+				echo ${decrypted_value} | grep -qi ^${key}=
+				if [ "$?" -eq 0 ]; then
+					echo $key=$decrypted_value >> ${file}.decrypted
+				fi
 			else
 				echo $line >> ${file}.decrypted
 			fi
