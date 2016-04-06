@@ -50,7 +50,7 @@ find /config -type f -iname "*.env" -print0 \
 			if [ "$?" -eq 0 ]; then
 				echo ${decrypted_value} | grep -qi ^${key}=
 				if [ "$?" -eq 0 ]; then
-					echo $key=$decrypted_value >> ${file}.decrypted
+					echo $decrypted_value >> ${file}.decrypted
 				fi
 			else
 				echo $line >> ${file}.decrypted
